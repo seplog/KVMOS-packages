@@ -39,9 +39,19 @@ pre_configure_target() {
   # Disable ARPd
   sed -i /ARPD/d Makefile
   sed -i 's/arpd.8//' man/man8/Makefile
-  rm -v doc/arpd.sgml
+  rm -f doc/arpd.sgml
 }
 
 configure_target() {
   : # nop()
+}
+
+export CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include"
+
+make_target() {
+  make \
+    CC="$TARGET_CC" \
+    AR="$TARGET_AR" \
+    KERNEL_INCLUDE="$SYSROOT_PREFIX/usr/include" \
+    all
 }
