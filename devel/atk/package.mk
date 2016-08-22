@@ -31,7 +31,8 @@ PKG_LONGDESC="ATK provides the set of accessibility interfaces that are implemen
 PKG_IS_ADDON="no"
 
 PKG_AUTORECONF="yes"
-PKG_CONFIGURE_OPTS_TARGET="--disable-static \
+PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules \
+                           --disable-static \
                            --enable-shared \
                            --disable-rebuilds \
                            --disable-glibtest \
@@ -40,3 +41,5 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-static \
 export PKG_CONFIG_TARGET=$PKG_CONFIG
 export PKG_CONFIG=$ROOT/scripts/pkg-config-wrapper
 export PKG_CONFIG_PREFIX=$SYSROOT_PREFIX
+export PYTHONPATH=$PYTHONPATH:$ROOT/$TOOLCHAIN/lib/python2.7/gobject-introspection
+export XDG_DATA_DIRS=$SYSROOT_PREFIX/usr/share

@@ -1,0 +1,12 @@
+diff -Nur a/setup.py b/setup.py
+--- a/setup.py	2016-08-22 18:43:57.066134128 +0200
++++ b/setup.py	2016-08-22 18:58:53.138125183 +0200
+@@ -70,7 +70,7 @@
+     """Check with pkg-config that libvirt is present and extract
+     the API XML file paths we need from it"""
+ 
+-    libvirt_api = get_pkgconfig_data(["--variable", "libvirt_api"], "libvirt")
++    libvirt_api = os.getenv('SYSROOT_PREFIX') + get_pkgconfig_data(["--variable", "libvirt_api"], "libvirt")
+ 
+     offset = libvirt_api.index("-api.xml")
+     libvirt_qemu_api = libvirt_api[0:offset] + "-qemu-api.xml"

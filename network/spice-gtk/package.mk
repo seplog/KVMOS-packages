@@ -32,6 +32,8 @@ PKG_IS_ADDON="no"
 
 PKG_AUTORECONF="no"
 
+export PATH=$SYSROOT_PREFIX/usr/bin:$PATH
+
 PKG_CONFIGURE_OPTS_TARGET="--disable-static \
                            --enable-shared \
                            --disable-nls \
@@ -57,3 +59,4 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-static \
 export PKG_CONFIG_TARGET=$PKG_CONFIG
 export PKG_CONFIG=$ROOT/scripts/pkg-config-wrapper
 export PKG_CONFIG_PREFIX=$SYSROOT_PREFIX
+export XDG_DATA_DIRS=$SYSROOT_PREFIX/usr/share

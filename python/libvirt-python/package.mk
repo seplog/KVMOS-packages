@@ -32,6 +32,10 @@ PKG_IS_ADDON="no"
 
 PKG_AUTORECONF="no"
 
+export PKG_CONFIG_TARGET=$PKG_CONFIG
+export PKG_CONFIG=$ROOT/scripts/pkg-config-wrapper
+export PKG_CONFIG_PREFIX=$SYSROOT_PREFIX
+export SYSROOT_PREFIX=$SYSROOT_PREFIX
 pre_make_target() {
   export PYTHONXCPREFIX="$SYSROOT_PREFIX/usr"
   export LDSHARED="$CC -shared"

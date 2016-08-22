@@ -65,15 +65,9 @@ PKG_CONFIGURE_OPTS_TARGET="--enable-shared \
 export PKG_CONFIG_TARGET=$PKG_CONFIG
 export PKG_CONFIG=$ROOT/scripts/pkg-config-wrapper
 export PKG_CONFIG_PREFIX=$SYSROOT_PREFIX
-
-# make_target() {
-#   make SRC_SUBDIRS="gdk gtk modules"
-#   $MAKEINSTALL SRC_SUBDIRS="gdk gtk modules"
-# }
-
-# makeinstall_target() {
-#   make install DESTDIR=$INSTALL SRC_SUBDIRS="gdk gtk modules"
-# }
+export XDG_DATA_DIRS=$SYSROOT_PREFIX/usr/share
+export PATH="$SYSROOT_PREFIX/usr/bin:$PATH"
+export PYTHONPATH=$PYTHONPATH:PYTHONPATH=$PYTHONPATH:$SYSROOT_PREFIX/usr/share/glib-2.0
 
 post_makeinstall_target() {
   mkdir -p $INSTALL/etc/gtk-3.0

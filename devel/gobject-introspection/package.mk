@@ -46,3 +46,14 @@ PKG_CONFIGURE_OPTS_TARGET="--enable-shared \
 export PKG_CONFIG_TARGET=$PKG_CONFIG
 export PKG_CONFIG=$ROOT/scripts/pkg-config-wrapper
 export PKG_CONFIG_PREFIX=$SYSROOT_PREFIX
+export XDG_DATA_DIRS=$SYSROOT_PREFIX/usr/share
+
+post_makeinstall_target() {
+  cp -Rf $INSTALL/* $SYSROOT_PREFIX/
+  cp -Rp $INSTALL/usr/lib/girepository-1.0 $ROOT/$TOOLCHAIN/lib/python2.7/
+  cp -Rp $INSTALL/usr/lib/gobject-introspection $ROOT/$TOOLCHAIN/lib/python2.7/
+
+  # correct paths in SYSROOT
+  sed -i "s|datadir = \"/usr/share\"|datadir = \"$SYSROOT_PREFIX/usr/share\"|g" $SYSROOT_PREFIX/usr/bin/g-ir-scanner
+  sed -i "s|pylibdir = os.path.join('/usr/lib', 'gobject-introspection')|pylibdir = os.path.join('$SYSROOT_PREFIX/usr/lib', 'gobject-introspection')|g" $SYSROOT_PREFIX/usr/bin/g-ir-scanner
+}

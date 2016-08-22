@@ -44,3 +44,4 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-gtk-doc \
 export PKG_CONFIG_TARGET=$PKG_CONFIG
 export PKG_CONFIG=$ROOT/scripts/pkg-config-wrapper
 export PKG_CONFIG_PREFIX=$SYSROOT_PREFIX
+export XDG_DATA_DIRS=$SYSROOT_PREFIX/usr/share

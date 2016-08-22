@@ -39,5 +39,5 @@ configure_target() {
 }
 
 makeinstall_target() {
-  make prefix=$INSTALL/usr install
+  make prefix=$SYSROOT_PREFIX/usr install
 }
