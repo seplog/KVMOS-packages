@@ -24,7 +24,7 @@ PKG_ARCH="any"
 PKG_LICENSE="BSD"
 PKG_SITE="http://i3wm.org/"
 PKG_URL="http://i3wm.org/downloads/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain libev yajl libxcb libxkbcommon startup-notification xcb-util xcb-util-keysyms xcb-util-wm xcb-util-cursor pango pcre"
+PKG_DEPENDS_TARGET="toolchain libev yajl libXau libxcb libxkbcommon startup-notification xcb-util xcb-util-keysyms xcb-util-wm xcb-util-cursor pango pcre"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/other"
 PKG_SHORTDESC="An improved dynamic tiling window manager"
@@ -38,6 +38,8 @@ PKG_CONFIGURE_OPTS_TARGET=""
 if [ "$WINDOWMANAGER" = "i3" ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $I3EXTRA"
 fi
+
+export LDFLAGS="$LDFLAGS -L$SYSROOT_PREFIX/usr/lib -lXau"
 
 post_install() {
   enable_service windowmanager.service
