@@ -34,7 +34,14 @@ PKG_AUTORECONF="no"
 
 export PATH=$SYSROOT_PREFIX/usr/bin:$PATH
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-static \
+PKG_CONFIGURE_OPTS_TARGET="INTLTOOL_UPDATE=$ROOT/$TOOLCHAIN/bin/intltool-update \
+                           INTLTOOL_MERGE=$ROOT/$TOOLCHAIN/bin/intltool-merge \
+                           INTLTOOL_EXTRACT=$ROOT/$TOOLCHAIN/bin/intltool-extract \
+                           MSGMERGE=$ROOT/$TOOLCHAIN/bin/msgmerge \
+                           MSGFMT=$ROOT/$TOOLCHAIN/bin/msgfmt \
+                           GMSGFMT=$ROOT/$TOOLCHAIN/bin/msgfmt \
+                           XGETTEXT=$ROOT/$TOOLCHAIN/bin/xgettext \
+                           --disable-static \
                            --enable-shared \
                            --disable-nls \
                            --disable-gtk-doc \

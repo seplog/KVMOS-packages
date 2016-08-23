@@ -1,0 +1,19 @@
+diff -Nur a/src/symbolic/Makefile.in b/src/symbolic/Makefile.in
+--- a/src/symbolic/Makefile.in	2016-08-23 13:06:40.558467914 +0200
++++ b/src/symbolic/Makefile.in	2016-08-23 13:07:17.439797347 +0200
+@@ -428,15 +428,6 @@
+ 			$(install_sh_DATA) $(top_srcdir)/$(SVGOUTDIR)/$$size/$$file $(DESTDIR)$(themedir)/$$size/$$file; \
+ 		done; \
+ 	done
+-	for file in `cd $(top_srcdir)/$(SVGOUTDIR)/scalable; find . -name "*.svg"`; do \
+-		context="`dirname $$file`"; \
+-		$(mkdir_p) $(DESTDIR)$(themedir)/scalable/$$context; \
+-		$(install_sh_DATA) $(top_srcdir)/$(SVGOUTDIR)/scalable/$$file $(DESTDIR)$(themedir)/scalable/$$file; \
+-		for size in $(symbolic_encode_sizes); do \
+-			$(mkdir_p) $(DESTDIR)$(themedir)/$$size/$$context; \
+-			$(GTK_ENCODE_SYMBOLIC_SVG) $(top_srcdir)/$(SVGOUTDIR)/scalable/$$file $$size -o $(DESTDIR)$(themedir)/$$size/$$context; \
+-		done \
+-	done
+ 
+ uninstall-local:
+ 	for file in `cd $(top_srcdir)/$(SVGOUTDIR)/scalable; find . -name "*.svg"`; do \

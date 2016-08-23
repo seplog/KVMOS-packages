@@ -32,7 +32,8 @@ PKG_IS_ADDON="no"
 
 PKG_AUTORECONF="yes"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-shared \
+PKG_CONFIGURE_OPTS_TARGET="ac_cv_path_XGETTEXT=$ROOT/$TOOLCHAIN/bin/xgettext \
+                           --enable-shared \
                            --enable-xkb \
                            --enable-xinerama \
                            --enable-xrandr \

@@ -34,7 +34,11 @@ PKG_AUTORECONF="yes"
 
 export PATH=$SYSROOT_PREFIX/usr/bin:$PATH
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-static \
+PKG_CONFIGURE_OPTS_TARGET="XGETTEXT=$ROOT/$TOOLCHAIN/bin/xgettext \
+                           MSGFMT=$ROOT/$TOOLCHAIN/bin/msgfmt \
+                           GMSGFMT=$ROOT/$TOOLCHAIN/bin/msgfmt \
+                           MSGMERGE=$ROOT/$TOOLCHAIN/bin/msgmerge \
+                           --disable-static \
                            --enable-shared \
                            --enable-introspection \
                            --disable-vala \

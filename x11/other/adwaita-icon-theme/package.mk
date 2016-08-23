@@ -31,7 +31,7 @@ PKG_LONGDESC="GNOME default icon theme"
 PKG_IS_ADDON="no"
 
 PKG_AUTORECONF="yes"
-PKG_CONFIGURE_OPTS_TARGET=""
+PKG_CONFIGURE_OPTS_TARGET="--disable-silent-rules"
 
 export PKG_CONFIG_TARGET=$PKG_CONFIG
 export PKG_CONFIG=$ROOT/scripts/pkg-config-wrapper
