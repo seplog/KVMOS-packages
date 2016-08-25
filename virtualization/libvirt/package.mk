@@ -23,7 +23,7 @@ PKG_ARCH="x86_64"
 PKG_LICENSE="LGPL-2.1"
 PKG_SITE="http://www.libvirt.org/"
 PKG_URL="http://libvirt.org/sources/stable_updates/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libgcrypt libnl libxml2 curl dmidecode util-linux gettext readline fuse LVM2 parted libpcap qemu systemd iptables iproute2 libpciaccess yajl pm-utils ebtables dnsmasq" # scrub netcat gnutls ncurses radvd ( libssh >= 1.3 ) (libsystemd-daemon? o0)
+PKG_DEPENDS_TARGET="toolchain libgcrypt libnl libxml2 curl dmidecode util-linux gettext readline fuse LVM2 parted libpcap qemu systemd iptables iproute2 libpciaccess yajl pm-utils ebtables dnsmasq gnutls libressl nettle" # scrub netcat ncurses radvd ( libssh >= 1.3 ) (libsystemd-daemon? o0)
 PKG_PRIORITY="optional"
 PKG_SECTION="virtualization"
 PKG_SHORTDESC="C toolkit to manipulate virtual machines"
@@ -46,6 +46,7 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_path_IPTABLES_PATH=/usr/sbin/iptables \
                            --with-curl \
                            --without-dbus \
                            --with-fuse \
+                           --with-gcrypt \
                            --without-glusterfs \
                            --without-hal \
                            --without-netcf \
@@ -89,7 +90,7 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_path_IPTABLES_PATH=/usr/sbin/iptables \
                            --without-vz \
                            --without-bhyve \
                            --with-libxml=$SYSROOT_PREFIX/usr \
-                           --without-gnutls \
+                           --with-gnutls \
                            --without-polkit \
                            --without-firewalld \
                            --without-secdriver-selinux \

@@ -39,5 +39,9 @@ configure_target() {
 }
 
 makeinstall_target() {
-  make prefix=$SYSROOT_PREFIX/usr install
+  make prefix=$INSTALL/usr install
+}
+
+post_makeinstall_target() {
+  cp -Rf $INSTALL/usr/* $SYSROOT_PREFIX/usr/
 }

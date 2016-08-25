@@ -37,3 +37,7 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-gui \
 
 export CFLAGS="$CFLAGS -UHAVE_AUTOMATED_TESTS"
 export LDFLAGS="$LDFLAGS -L$SYSROOT/usr/lib -ljpeg"
+
+post_makeinstall_target() {
+  cp -Rf $INSTALL/usr/lib/* $SYSROOT_PREFIX/usr/lib/
+}
