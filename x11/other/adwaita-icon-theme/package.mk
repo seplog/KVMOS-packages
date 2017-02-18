@@ -17,13 +17,13 @@
 ################################################################################
 
 PKG_NAME="adwaita-icon-theme"
-PKG_VERSION="3.20"
+PKG_VERSION="3.16.2.1"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="LGPL-3"
 PKG_SITE="https://git.gnome.org/browse/adwaita-icon-theme/"
-PKG_URL="http://ftp.gnome.org/pub/gnome/sources/$PKG_NAME/3.20/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain gtk+"
+PKG_URL="http://ftp.gnome.org/pub/gnome/sources/$PKG_NAME/3.16/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_DEPENDS_TARGET="toolchain gtk+ librsvg"
 PKG_PRIORITY="optional"
 PKG_SECTION="x11/other"
 PKG_SHORTDESC="GNOME default icon theme"

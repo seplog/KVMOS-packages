@@ -16,28 +16,20 @@
 #  along with KVMOS.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="spice"
-PKG_VERSION="0.13.2"
+PKG_NAME="libcroco"
+PKG_VERSION="0.6.11"
 PKG_REV="1"
-PKG_ARCH="x86_64"
-PKG_LICENSE="GPL"
-PKG_SITE="http://spice-space.org/"
-PKG_URL="http://spice-space.org/download/releases/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain glib celt zlib libjpeg-turbo pixman libressl spice-protocol"
+PKG_ARCH="any"
+PKG_LICENSE="LGPL-2"
+PKG_SITE="https://git.gnome.org/browse/libcroco/"
+PKG_URL="http://ftp.gnome.org/pub/gnome/sources/$PKG_NAME/0.6/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_DEPENDS_TARGET="toolchain glib libxml2"
 PKG_PRIORITY="optional"
-PKG_SECTION="virtualization"
-PKG_SHORTDESC="SPICE server"
-PKG_LONGDESC="SPICE server"
-
+PKG_SECTION="devel"
+PKG_SHORTDESC="Generic Cascading Style Sheet (CSS) parsing and manipulation toolkit"
+PKG_LONGDESC="Generic Cascading Style Sheet (CSS) parsing and manipulation toolkit"
 PKG_IS_ADDON="no"
+
 PKG_AUTORECONF="yes"
-
-PKG_CONFIGURE_OPTS_TARGET="--disable-gui \
-                           --disable-automated-tests"
-
-export CFLAGS="$CFLAGS -UHAVE_AUTOMATED_TESTS"
-export LDFLAGS="$LDFLAGS -L$SYSROOT/usr/lib -ljpeg"
-
-post_makeinstall_target() {
-  cp -Rf $INSTALL/usr/lib/* $SYSROOT_PREFIX/usr/lib/
-}
+PKG_CONFIGURE_OPTS_TARGET="--disable-static \
+                           --enable-shared"

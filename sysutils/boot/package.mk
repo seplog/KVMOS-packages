@@ -1,6 +1,6 @@
 ################################################################################
 #      This file is part of KVMOS - @page@
-#      Copyright (C) 2016 KVMOS
+#      Copyright (C) 2016 Sebastian Koschmieder (sep@seplog.org)
 #
 #  KVMOS is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -13,31 +13,42 @@
 #  GNU General Public License for more details.
 #
 #  You should have received a copy of the GNU General Public License
-#  along with KVMOS.  If not, see <http://www.gnu.org/licenses/>.
+#  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="spice"
-PKG_VERSION="0.13.2"
+PKG_NAME="boot"
+PKG_VERSION=""
 PKG_REV="1"
-PKG_ARCH="x86_64"
-PKG_LICENSE="GPL"
-PKG_SITE="http://spice-space.org/"
-PKG_URL="http://spice-space.org/download/releases/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain glib celt zlib libjpeg-turbo pixman libressl spice-protocol"
+PKG_ARCH="any"
+PKG_LICENSE="various"
+PKG_SITE="@page@"
+PKG_URL=""
+PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
-PKG_SECTION="virtualization"
-PKG_SHORTDESC="SPICE server"
-PKG_LONGDESC="SPICE server"
+PKG_SECTION="sysutils"
+PKG_SHORTDESC="network: Metapackage for packages to install efiboot support"
+PKG_LONGDESC="network: Metapackage for various packages to install efiboot support"
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-gui \
-                           --disable-automated-tests"
+if [ "$DISTRO" = "KVMOS" ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET efibootmgr"
+fi
 
-export CFLAGS="$CFLAGS -UHAVE_AUTOMATED_TESTS"
-export LDFLAGS="$LDFLAGS -L$SYSROOT/usr/lib -ljpeg"
+configure_target() {
+  : # nop
+}
+
+make_target() {
+  : # nop
+}
+
+makeinstall_target() {
+  : # nop
+}
 
 post_makeinstall_target() {
-  cp -Rf $INSTALL/usr/lib/* $SYSROOT_PREFIX/usr/lib/
+  mkdir -p $INSTALL/usr/bin
+  cp -p $(get_build_dir efibootmgr)/src/efibootmgr/efibootmgr $INSTALL/usr/bin/
 }

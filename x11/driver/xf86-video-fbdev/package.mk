@@ -1,0 +1,18 @@
+PKG_NAME="xf86-video-fbdev"
+PKG_VERSION="0.4.4"
+PKG_REV="1"
+PKG_ARCH="x86_64"
+PKG_LICENSE="OSS"
+PKG_SITE="https://www.x.org/wiki/"
+PKG_URL="https://www.x.org/releases/individual/driver/$PKG_NAME-$PKG_VERSION.tar.bz2"
+PKG_SOURCE_DIR="$PKG_VERSION"
+PKG_DEPENDS_TARGET="toolchain xorg-server"
+PKG_PRIORITY="optional"
+PKG_SECTION="x11/driver"
+PKG_SHORTDESC="xf86-video-fbdev: Video driver for framebuffer device"
+PKG_LONGDESC="Video driver for framebuffer device"
+
+PKG_IS_ADDON="no"
+PKG_AUTORECONF="no"
+
+PKG_CONFIGURE_OPTS_TARGET="--with-xorg-module-dir=$XORG_PATH_MODULES"

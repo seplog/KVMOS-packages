@@ -140,7 +140,7 @@ post_makeinstall_target() {
   cp -P $(get_build_dir dmidecode)/vpddecode $INSTALL/usr/sbin/
 }
 
-post_install() {
-  enable_service libvirtd.service
-  enable_service virtlogd.service
-}
+# post_install() {
+#  enable_service libvirtd.service
+#  enable_service virtlogd.service
+# }
