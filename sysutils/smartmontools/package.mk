@@ -16,40 +16,28 @@
 #  along with KVMOS.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="i3"
-# dont bump or go back to ratpoison then f*** all 3rdparty stuff.
-PKG_VERSION="4.11"
+PKG_NAME="smartmontools"
+PKG_VERSION="6.5"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="BSD"
-PKG_SITE="http://i3wm.org/"
-PKG_URL="http://i3wm.org/downloads/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain libev yajl libXau libxcb libxkbcommon startup-notification xcb-util xcb-util-keysyms xcb-util-wm xcb-util-cursor pango pcre"
+PKG_LICENSE="GPL-2"
+PKG_SITE="https://www.smartmontools.org"
+PKG_URL="https://downloads.sourceforge.net/project/smartmontools/$PKG_NAME/$PKG_VERSION/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
-PKG_SECTION="x11/other"
-PKG_SHORTDESC="An improved dynamic tiling window manager"
-PKG_LONGDESC="An improved dynamic tiling window manager"
+PKG_SECTION="sysutils"
+PKG_SHORTDESC="Tools to monitor storage systems to provide advanced warning of disk degradation"
+PKG_LONGDESC="The smartmontools package contains utility programs (smartctl, smartd) to control/monitor storage systems using the Self-Monitoring, Analysis and Reporting Technology System (S.M.A.R.T.) built into most modern ATA and SCSI disks."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 PKG_CONFIGURE_OPTS_TARGET=""
-
-if [ "$WINDOWMANAGER" = "i3" ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $I3EXTRA"
-fi
-
-export LDFLAGS="$LDFLAGS -L$SYSROOT_PREFIX/usr/lib -lXau"
-
-post_install() {
-  enable_service windowmanager.service
-}
+PKG_MAKE_OPTS_TARGET="DESTDIR=$INSTALL/usr"
 
 post_makeinstall_target() {
-  mkdir -p $INSTALL/usr/config
-  cp $PKG_DIR/config/config $INSTALL/usr/config/i3/
-  rm -Rf $INSTALL/etc/i3
-  ln -sf /storage/.config/i3 $INSTALL/etc/
-
-  cp $PKG_DIR/bin/i3-power $INSTALL/usr/bin/
+  mkdir -p $INSTALL/usr/config/i3
+  cp $INSTALL/etc/smartd.conf $INSTALL/usr/config/
+  rm -Rf $INSTALL/etc/smartd.conf
+  ln -sf /storage/.config/smartd.conf $INSTALL/etc/
 }

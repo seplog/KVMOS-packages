@@ -1,0 +1,24 @@
+diff -Nur a/configure b/configure
+--- a/configure	2017-03-08 14:39:10.704047253 +0100
++++ b/configure	2017-03-08 14:44:52.716050921 +0100
+@@ -1562,7 +1562,7 @@
+ #define HAVE_SSL 1
+ EOF
+ 
+-	LIBS="$LIBS -lssl"
++	LIBS="$LIBS -lssl -lcrypto"
+ fi
+ enableval=""
+ 
+diff -Nur a/configure.in b/configure.in
+--- a/configure.in	2017-03-08 14:39:10.708047253 +0100
++++ b/configure.in	2017-03-08 14:45:01.620051017 +0100
+@@ -52,7 +52,7 @@
+ [  --enable-ssl           support for secure connection to mail server])
+ if test x$enableval = xyes ; then
+ 	AC_DEFINE(HAVE_SSL)
+-	LIBS="$LIBS -lssl"
++	LIBS="$LIBS -lssl -lcrypto"
+ fi
+ enableval=""
+ 

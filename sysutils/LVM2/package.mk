@@ -39,6 +39,7 @@ PKG_MAINTAINER="vpeter4 (peter.vicman@gmail.com)"
 
 PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
             ac_cv_func_realloc_0_nonnull=yes \
+            --includedir=$SYSROOT_PREFIX/usr/include \
             --disable-lvm1_fallback \
             --disable-static_link \
             --disable-readline \
@@ -54,7 +55,18 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
             --enable-fsadm \
             --disable-dmeventd \
             --disable-selinux \
-            --disable-nls"
+            --disable-nls \
+            --enable-dmeventd \
+            --enable-lvmetad \
+            --enable-lvmpolld"
+
+makeinstall_target() {
+  # manual install several targets
+  INSTALL_TARGETS="install install_tmpfiles_configuration install_systemd_units install_systemd_generators install_device-mapper"
+  for inst in ${INSTALL_TARGETS}; do
+    make DESTDIR="$INSTALL" pkgconfigdir=$INSTALL/usr/lib/pkgconfig ${inst}
+  done
+}
 
 post_makeinstall_target() {
   mkdir -p $INSTALL/usr/config/
@@ -64,5 +76,5 @@ post_makeinstall_target() {
 
   ln -sf /storage/.config/lvm $INSTALL/etc
 
-  mv $INSTALL/usr/sbin $INSTALL
+  enable_service lvm2-monitor.service
 }

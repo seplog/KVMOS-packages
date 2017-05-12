@@ -16,29 +16,25 @@
 #  along with KVMOS.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="spice"
-PKG_VERSION="0.13.2"
+PKG_NAME="cciss_vol_status"
+PKG_VERSION="1.11"
 PKG_REV="1"
-PKG_ARCH="x86_64"
-PKG_LICENSE="GPL"
-PKG_SITE="http://spice-space.org/"
-PKG_URL="http://spice-space.org/download/releases/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain glib celt zlib libjpeg-turbo pixman libressl spice-protocol"
+PKG_ARCH="any"
+PKG_LICENSE="GPL-2"
+PKG_SITE="http://cciss.sourceforge.net/#cciss_utils"
+PKG_URL="http://distfiles.gentoo.org/distfiles/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
-PKG_SECTION="virtualization"
-PKG_SHORTDESC="SPICE server"
-PKG_LONGDESC="SPICE server"
-
+PKG_SECTION="sysutils"
+PKG_SHORTDESC="Shows status of logical drives attached to HP SmartArray controllers"
+PKG_LONGDESC="Shows status of logical drives attached to HP SmartArray controllers"
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-gui \
-                           --disable-gstreamer \
-                           --disable-automated-tests"
+PKG_AUTORECONF="no"
 
-export CFLAGS="$CFLAGS -UHAVE_AUTOMATED_TESTS"
-export LDFLAGS="$LDFLAGS -L$SYSROOT/usr/lib -ljpeg"
+PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes"
+# PKG_MAKEINSTALL_OPTS_TARGET="DESTDIR=$INSTALL"
 
-post_makeinstall_target() {
-  cp -Rf $INSTALL/usr/lib/* $SYSROOT_PREFIX/usr/lib/
+makeinstall_target() {
+  $MAKE DESTDIR=$INSTALL install
 }

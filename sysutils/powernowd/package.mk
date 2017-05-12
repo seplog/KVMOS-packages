@@ -16,33 +16,34 @@
 #  along with KVMOS.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="pm-utils"
-PKG_VERSION="1.4.1"
+PKG_NAME="powernowd"
+PKG_VERSION="1.00"
 PKG_REV="1"
-PKG_ARCH="x86_64"
+PKG_ARCH="any"
 PKG_LICENSE="GPL-2"
-PKG_SITE="https://pm-utils.freedesktop.org/"
-PKG_URL="https://pm-utils.freedesktop.org/releases/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain dbus util-linux alsa-utils hdparm ethtool wireless_tools powernowd"
+PKG_SITE="http://www.deater.net/john/powernowd.html"
+PKG_URL="http://www.deater.net/john/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
 PKG_SECTION="sysutils"
-PKG_SHORTDESC="Suspend and hibernation utilities"
-PKG_LONGDESC="Suspend and hibernation utilities"
-
+PKG_SHORTDESC="Daemon to control the speed and voltage of CPUs"
+PKG_LONGDESC="Daemon to control the speed and voltage of CPUs"
 PKG_IS_ADDON="no"
+
 PKG_AUTORECONF="no"
 
-post_makeinstall_target() {
-  mkdir -p $INSTALL/usr/config/
-  cp $INSTALL/etc/pm $INSTALL/usr/config/ -Rf
-  rm -Rf $INSTALL/etc/pm
-  ln -sf /storage/.config/pm $INSTALL/etc/
+make_target() {
+  $CC $CFLAGS $LDFLAGS $PKG_NAME.c -o $PKG_NAME
+}
 
-  # Install wireless-tools its a unofficial plugin...
-  mkdir -p $INSTALL/bin
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwspy
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwlist
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwpriv
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwgetid
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwconfig
+makeinstall_target() {
+  mkdir -p $INSTALL/usr/bin
+  cp $PKG_NAME $INSTALL/usr/bin/
+}
+
+post_makeinstall_target() {
+  mkdir -p $INSTALL/usr/lib/systemd/system
+  cp $PKG_DIR/services/$PKG_NAME.service $INSTALL/usr/lib/systemd/system/
+
+  enable_service powernowd.service
 }

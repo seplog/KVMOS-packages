@@ -23,7 +23,7 @@ PKG_ARCH="x86_64"
 PKG_LICENSE="LGPL-2.1"
 PKG_SITE="http://www.libvirt.org/"
 PKG_URL="http://libvirt.org/sources/stable_updates/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libgcrypt libnl libxml2 curl dmidecode util-linux gettext readline fuse LVM2 parted libpcap qemu systemd iptables iproute2 libpciaccess yajl pm-utils ebtables dnsmasq libressl" # scrub netcat ncurses radvd ( libssh >= 1.3 ) (libsystemd-daemon? o0)
+PKG_DEPENDS_TARGET="toolchain libgcrypt libnl libxml2 curl dmidecode util-linux gettext readline fuse LVM2 parted libpcap qemu systemd iptables iproute2 libpciaccess yajl pm-utils ebtables dnsmasq libressl nc6" # scrub netcat ncurses radvd ( libssh >= 1.3 ) (libsystemd-daemon? o0)
 PKG_PRIORITY="optional"
 PKG_SECTION="virtualization"
 PKG_SHORTDESC="C toolkit to manipulate virtual machines"
@@ -32,10 +32,42 @@ PKG_LONGDESC="C toolkit to manipulate virtual machines"
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="ac_cv_path_IPTABLES_PATH=/usr/sbin/iptables \
-                           ac_cv_path_IP6TABLES_PATH=/usr/sbin/ip6tables \
-                           ac_cv_path_EBTABLES_PATH=/usr/sbin/ebtables \
+PKG_CONFIGURE_OPTS_TARGET="ac_cv_path_ADDR2LINE=/usr/bin/addr2line \
+                           ac_cv_path_AUGPARSE=/usr/bin/augparse \
+                           ac_cv_path_DMIDECODE=/usr/sbin/dmidecode \
+                           ac_cv_path_DMSETUP=/usr/sbin/dmsetup \
                            ac_cv_path_DNSMASQ=/usr/sbin/dnsmasq \
+                           ac_cv_path_EBTABLES_PATH=/usr/sbin/ebtables \
+                           ac_cv_path_GMSGFMT=/usr/bin/gmsgfmt \
+                           ac_cv_path_GREP=/bin/grep \
+                           ac_cv_path_IFCONFIG_PATH=/sbin/ifconfig \
+                           ac_cv_path_IP6TABLES_PATH=/usr/sbin/ip6tables \
+                           ac_cv_path_IPTABLES_PATH=/usr/sbin/iptables \
+                           ac_cv_path_IP_PATH=/sbin/ip \
+                           ac_cv_path_LVCHANGE=/usr/sbin/lvchange \
+                           ac_cv_path_LVCREATE=/usr/sbin/lvcreate \
+                           ac_cv_path_LVREMOVE=/usr/sbin/lvremove \
+                           ac_cv_path_LVS=/usr/sbin/lvs \
+                           ac_cv_path_MODPROBE=/sbin/modprobe \
+                           ac_cv_path_MOUNT=/bin/mount \
+                           ac_cv_path_MSGFMT=/usr/bin/msgfmt \
+                           ac_cv_path_MSGMERGE=/usr/bin/msgmerge \
+                           ac_cv_path_PARTED=/usr/sbin/parted \
+                           ac_cv_path_PVCREATE=/usr/sbin/pvcreate \
+                           ac_cv_path_PVREMOVE=/usr/sbin/pvremove \
+                           ac_cv_path_PVS=/usr/sbin/pvs \
+                           ac_cv_path_PYTHON=/usr/bin/python \
+                           ac_cv_path_RADVD=/usr/sbin/radvd \
+                           ac_cv_path_RMMOD=/sbin/rmmod \
+                           ac_cv_path_SED=/bin/sed \
+                           ac_cv_path_UDEVADM=/usr/bin/udevadm \
+                           ac_cv_path_UMOUNT=/bin/umount \
+                           ac_cv_path_VGCHANGE=/usr/sbin/vgchange \
+                           ac_cv_path_VGCREATE=/usr/sbin/vgcreate \
+                           ac_cv_path_VGREMOVE=/usr/sbin/vgmove \
+                           ac_cv_path_VGS=/usr/sbin/vgs \
+                           ac_cv_path_VGSCAN=/usr/sbin/vgscan \
+                           ac_cv_path_XGETTEXT=/usr/bin/xgettext \
                            --without-apparmor \
                            --without-apparmor-mount \
                            --without-attr \
@@ -139,8 +171,3 @@ post_makeinstall_target() {
   cp -P $(get_build_dir dmidecode)/ownership $INSTALL/usr/sbin/
   cp -P $(get_build_dir dmidecode)/vpddecode $INSTALL/usr/sbin/
 }
-
-# post_install() {
-#  enable_service libvirtd.service
-#  enable_service virtlogd.service
-# }

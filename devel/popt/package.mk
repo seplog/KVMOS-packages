@@ -16,29 +16,21 @@
 #  along with KVMOS.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="spice"
-PKG_VERSION="0.13.2"
+PKG_NAME="popt"
+PKG_VERSION="1.16"
 PKG_REV="1"
-PKG_ARCH="x86_64"
-PKG_LICENSE="GPL"
-PKG_SITE="http://spice-space.org/"
-PKG_URL="http://spice-space.org/download/releases/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain glib celt zlib libjpeg-turbo pixman libressl spice-protocol"
+PKG_ARCH="any"
+PKG_LICENSE="MIT"
+PKG_SITE="http://rpm5.org/"
+PKG_URL="http://rpm5.org/files/popt/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
-PKG_SECTION="virtualization"
-PKG_SHORTDESC="SPICE server"
-PKG_LONGDESC="SPICE server"
+PKG_SECTION="devel"
+PKG_SHORTDESC="Parse Options - Command line parser"
+PKG_LONGDESC=""
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-gui \
-                           --disable-gstreamer \
-                           --disable-automated-tests"
-
-export CFLAGS="$CFLAGS -UHAVE_AUTOMATED_TESTS"
-export LDFLAGS="$LDFLAGS -L$SYSROOT/usr/lib -ljpeg"
-
-post_makeinstall_target() {
-  cp -Rf $INSTALL/usr/lib/* $SYSROOT_PREFIX/usr/lib/
-}
+PKG_CONFIGURE_OPTS_TARGET="--disable-dependency-tracking \
+                           --disable-nls"

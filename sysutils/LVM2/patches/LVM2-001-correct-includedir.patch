@@ -1,0 +1,12 @@
+diff -Nur a/make.tmpl.in b/make.tmpl.in
+--- a/make.tmpl.in	2016-02-26 22:05:13.000000000 +0100
++++ b/make.tmpl.in	2017-03-09 11:29:31.116080142 +0100
+@@ -76,7 +76,7 @@
+ rootdir = $(DESTDIR)/
+ bindir = $(DESTDIR)@bindir@
+ confdir = $(DESTDIR)@CONFDIR@/lvm
+-includedir = $(DESTDIR)@includedir@
++includedir = @includedir@
+ libdir = $(DESTDIR)@libdir@
+ libexecdir = $(DESTDIR)@libexecdir@
+ usrlibdir = $(DESTDIR)@usrlibdir@

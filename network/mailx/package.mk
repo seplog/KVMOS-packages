@@ -16,40 +16,46 @@
 #  along with KVMOS.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="i3"
-# dont bump or go back to ratpoison then f*** all 3rdparty stuff.
-PKG_VERSION="4.11"
+PKG_NAME="mailx"
+PKG_VERSION="8.1.2-0.20050715"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="BSD"
-PKG_SITE="http://i3wm.org/"
-PKG_URL="http://i3wm.org/downloads/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain libev yajl libXau libxcb libxkbcommon startup-notification xcb-util xcb-util-keysyms xcb-util-wm xcb-util-cursor pango pcre"
+PKG_SITE="http://www.debian.org/"
+# http://distfiles.gentoo.org/distfiles/mailx_8.1.2-0.20050715cvs.orig.tar.gz
+PKG_URL="http://distfiles.gentoo.org/distfiles/${PKG_NAME}_${PKG_VERSION}cvs.orig.tar.gz"
+PKG_DEPENDS_TARGET="toolchain liblockfile ssmtp"
 PKG_PRIORITY="optional"
-PKG_SECTION="x11/other"
-PKG_SHORTDESC="An improved dynamic tiling window manager"
-PKG_LONGDESC="An improved dynamic tiling window manager"
+PKG_SECTION="network"
+PKG_SHORTDESC="The /bin/mail program, which is used to send mail via shell scripts"
+PKG_LONGDESC="The /bin/mail program, which is used to send mail via shell scripts"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET=""
+PKG_MAKE_OPTS_TARGET="DESTDIR=$INSTALL"
 
-if [ "$WINDOWMANAGER" = "i3" ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $I3EXTRA"
-fi
+configure_target() {
+  : # nop()
+}
 
-export LDFLAGS="$LDFLAGS -L$SYSROOT_PREFIX/usr/lib -lXau"
-
-post_install() {
-  enable_service windowmanager.service
+makeinstall_target() {
+  mkdir -p $INSTALL/{usr/bin,bin,etc}
+  install -p -c -m 755 mail $INSTALL/usr/bin/
+  (
+    cd misc
+    install -p -c -m 644 mail.rc $INSTALL/etc/
+  )
+  (
+    cd $INSTALL/usr/bin
+    ln -sf mail Mail
+    ln -sf mail mailx
+  )
 }
 
 post_makeinstall_target() {
   mkdir -p $INSTALL/usr/config
-  cp $PKG_DIR/config/config $INSTALL/usr/config/i3/
-  rm -Rf $INSTALL/etc/i3
-  ln -sf /storage/.config/i3 $INSTALL/etc/
-
-  cp $PKG_DIR/bin/i3-power $INSTALL/usr/bin/
+  cp $INSTALL/etc/mail.rc $INSTALL/usr/config/
+  rm -Rf $INSTALL/etc/mail.rc
+  ln -sf /storage/.config/mail.rc $INSTALL/etc/
 }
