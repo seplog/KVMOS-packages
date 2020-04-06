@@ -42,10 +42,10 @@ PKG_MAINTAINER="Dag Wieers (dag@wieers.com)"
 
 make_target() {
   make PREFIX=/usr \
-     CC="$TARGET_CC" \
-     AR="$TARGET_AR" \
-     CFLAGS="$TARGET_CFLAGS" \
-     CPPFLAGS="$TARGET_CPPFLAGS"
+     CC="${CC}" \
+     AR="${AR}" \
+     CFLAGS="${CFLAGS}" \
+     CPPFLAGS="${CPPFLAGS}"
 }
 
 makeinstall_target() {

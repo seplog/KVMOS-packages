@@ -28,6 +28,7 @@ PKG_PRIORITY="optional"
 PKG_SECTION="network"
 PKG_SHORTDESC="ifenslave: Attach and detach slave interfaces to a bonding device"
 PKG_LONGDESC="ifenslave: Attach and detach slave interfaces to a bonding device"
+PKG_TOOLCHAIN="make"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"

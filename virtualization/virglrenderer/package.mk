@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="virglrenderer"
-PKG_VERSION="0.5.0"
+PKG_VERSION="0.7.0"
 PKG_REV="1"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPL"

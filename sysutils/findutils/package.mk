@@ -17,12 +17,12 @@
 ################################################################################
 
 PKG_NAME="findutils"
-PKG_VERSION="4.6.0"
+PKG_VERSION="4.7.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL-3+"
 PKG_SITE="https://www.gnu.org/software/findutils/"
-PKG_URL="http://ftp.gnu.org/pub/gnu/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_URL="http://ftp.gnu.org/pub/gnu/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tar.xz"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
 PKG_SECTION="network"
@@ -33,7 +33,7 @@ PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 pre_configure_target() {
-  cd $ROOT/$PKG_BUILD
+  cd $PKG_BUILD
   rm -rf .$TARGET_NAME
 
   # without locate

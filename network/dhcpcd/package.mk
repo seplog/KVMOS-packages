@@ -38,7 +38,7 @@ PKG_CONFIGURE_OPTS_TARGET="--libexecdir=/lib/dhcpcd \
                            --without-udev"
 
 pre_configure_target() {
-  cd $ROOT/$PKG_BUILD
+  cd $PKG_BUILD
   rm -rf .$TARGET_NAME
 }
 

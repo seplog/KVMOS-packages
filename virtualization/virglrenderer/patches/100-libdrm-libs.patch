@@ -1,0 +1,10 @@
+diff -Nur a/src/Makefile.am b/src/Makefile.am
+--- a/src/Makefile.am	2018-09-19 02:18:58.000000000 +0200
++++ b/src/Makefile.am	2020-03-26 11:18:20.050087282 +0100
+@@ -1,5 +1,6 @@
+ SUBDIRS := gallium/auxiliary
+ AM_LDFLAGS = -lm \
++	$(LIBDRM_LIBS) \
+ 	$(GBM_LIBS) \
+ 	$(EPOXY_LIBS) \
+ 	$(X11_LIBS) \

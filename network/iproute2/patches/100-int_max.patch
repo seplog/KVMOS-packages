@@ -1,0 +1,11 @@
+diff -Nur a/tc/tc_core.c b/tc/tc_core.c
+--- a/tc/tc_core.c	2016-05-18 20:56:02.000000000 +0200
++++ b/tc/tc_core.c	2020-03-26 10:17:45.860066068 +0100
+@@ -12,6 +12,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <stdint.h>
+ #include <unistd.h>
+ #include <syslog.h>
+ #include <fcntl.h>

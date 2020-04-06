@@ -33,7 +33,7 @@ PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 pre_configure_target() {
-  cd $ROOT/$PKG_BUILD
+  cd $PKG_BUILD
   rm -rf .$TARGET_NAME
 
   # Disable ARPd
@@ -50,8 +50,8 @@ export CFLAGS="$CFLAGS -I$SYSROOT_PREFIX/usr/include"
 
 make_target() {
   make \
-    CC="$TARGET_CC" \
-    AR="$TARGET_AR" \
+    CC="${CC}" \
+    AR="${AR}" \
     KERNEL_INCLUDE="$SYSROOT_PREFIX/usr/include" \
     all
 }

@@ -17,24 +17,25 @@
 ################################################################################
 
 PKG_NAME="seabios"
-PKG_VERSION="1.9.0"
+PKG_VERSION="1.13.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="LGPL-3"
 PKG_SITE="http://www.seabios.org"
-PKG_URL="https://code.coreboot.org/p/$PKG_NAME/downloads/get/bios.bin-$PKG_VERSION.gz"
+PKG_URL="https://www.seabios.org/downloads/bios.bin-$PKG_VERSION.gz"
 PKG_DEPENDS_TARGET=""
 PKG_PRIORITY="optional"
 PKG_SECTION="sysutils"
 PKG_SHORTDESC="Open Source implementation of a 16-bit x86 BIOS"
 PKG_LONGDESC=""
 PKG_IS_ADDON="no"
+PKG_TOOLCHAIN="manual"
 
 PKG_AUTORECONF="no"
 
 unpack() {
   mkdir -p $PKG_BUILD
-  gunzip -k -c $ROOT/$SOURCES/$PKG_NAME/$PKG_NAME-$PKG_VERSION.gz > $PKG_BUILD/bios.bin
+  gunzip -k -c $SOURCES/$PKG_NAME/$PKG_NAME-$PKG_VERSION.gz > $PKG_BUILD/bios.bin
 }
 
 configure_target() {

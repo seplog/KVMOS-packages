@@ -19,14 +19,14 @@
 ################################################################################
 
 PKG_NAME="LVM2"
-PKG_VERSION="2.02.144"
+PKG_VERSION="2.02.184"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE=""
 PKG_SITE="http://sources.redhat.com/lvm2/"
 PKG_URL="ftp://sources.redhat.com/pub/lvm2/${PKG_NAME}.${PKG_VERSION}.tgz"
 PKG_SOURCE_DIR="${PKG_NAME}.${PKG_VERSION}"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET="toolchain libaio"
 PKG_PRIORITY="optional"
 PKG_SECTION="system"
 PKG_SHORTDESC="lvm2: Logical Volume Management (Version 2)"
@@ -46,7 +46,6 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
             --enable-realtime \
             --enable-debug \
             --disable-profiling \
-            --enable-devmapper \
             --disable-compat \
             --enable-o_direct \
             --enable-applib \
@@ -58,7 +57,8 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
             --disable-nls \
             --enable-dmeventd \
             --enable-lvmetad \
-            --enable-lvmpolld"
+            --enable-lvmpolld \
+            --enable-devicemapper"
 
 makeinstall_target() {
   # manual install several targets
@@ -73,6 +73,12 @@ post_makeinstall_target() {
   cp $INSTALL/etc/lvm $INSTALL/usr/config -Rf
   rm -Rf $INSTALL/etc/lvm
   cp -f $PKG_DIR/config/lvm.conf $INSTALL/usr/config/lvm/
+
+  mkdir -p $SYSROOT_PREFIX/usr/lib/pkgconfig
+    cp $INSTALL/usr/lib/pkgconfig/* $SYSROOT_PREFIX/usr/lib/pkgconfig
+
+  mkdir -p $SYSROOT_PREFIX/usr/lib
+    cp -Rf $INSTALL/usr/lib/* $SYSROOT_PREFIX/usr/lib
 
   ln -sf /storage/.config/lvm $INSTALL/etc
 

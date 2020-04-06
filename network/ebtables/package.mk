@@ -34,7 +34,7 @@ PKG_AUTORECONF="no"
 
 pre_configure_target() {
   # cannot build in build dir
-  cd $ROOT/$PKG_BUILD
+  cd $PKG_BUILD
   rm -rf .$TARGET_NAME
 }
 
