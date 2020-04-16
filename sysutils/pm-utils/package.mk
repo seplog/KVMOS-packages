@@ -23,7 +23,7 @@ PKG_ARCH="x86_64"
 PKG_LICENSE="GPL-2"
 PKG_SITE="https://pm-utils.freedesktop.org/"
 PKG_URL="https://pm-utils.freedesktop.org/releases/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain dbus util-linux alsa-utils hdparm ethtool wireless_tools"
+PKG_DEPENDS_TARGET="toolchain dbus util-linux alsa-utils hdparm ethtool"
 PKG_PRIORITY="optional"
 PKG_SECTION="sysutils"
 PKG_SHORTDESC="Suspend and hibernation utilities"
@@ -39,10 +39,10 @@ post_makeinstall_target() {
   ln -sf /storage/.config/pm $INSTALL/etc/
 
   # Install wireless-tools its a unofficial plugin...
-  mkdir -p $INSTALL/bin
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwspy
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwlist
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwpriv
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwgetid
-  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwconfig
+#  mkdir -p $INSTALL/bin
+#  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwspy
+#  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwlist
+#  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwpriv
+#  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwgetid
+#  cp -P $(get_build_dir wireless_tools)/iwmulticall $INSTALL/bin/iwconfig
 }

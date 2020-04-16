@@ -172,3 +172,7 @@ post_makeinstall_target() {
   cp -P $(get_build_dir dmidecode)/ownership $INSTALL/usr/sbin/
   cp -P $(get_build_dir dmidecode)/vpddecode $INSTALL/usr/sbin/
 }
+
+post_install() {
+  enable_service libvirtd.service
+}

@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="cciss_vol_status"
-PKG_VERSION="1.11"
+PKG_VERSION="1.12"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL-2"

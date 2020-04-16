@@ -48,6 +48,6 @@ pre_make_target() {
 }
 
 post_makeinstall_target() {
-  mkdir $INSTALL/bin
-  ln -sf /usr/bin/find $INSTALL/bin/
+  mkdir $INSTALL/usr/sbin
+  ln -sf /usr/bin/find $INSTALL/usr/sbin/
 }

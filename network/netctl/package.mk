@@ -17,13 +17,13 @@
 ################################################################################
 
 PKG_NAME="netctl"
-PKG_VERSION="1.12"
+PKG_VERSION="1.21"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL-3"
 PKG_SITE="https://wiki.archlinux.org/index.php/Netctl"
 PKG_URL="https://sources.archlinux.org/other/packages/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain bash findutils systemd dhcpcd openresolv wpa_supplicant iproute2 iptables ifenslave"
+PKG_DEPENDS_TARGET="toolchain bash findutils systemd dhcpcd openresolv iproute2 iptables ifenslave"
 PKG_PRIORITY="optional"
 PKG_SECTION="network"
 PKG_SHORTDESC="netctl: Profile based network connection tool from Arch Linux."
@@ -53,6 +53,12 @@ post_makeinstall_target() {
 
   mkdir -p $INSTALL/usr/config/netctl/hooks
   mkdir -p $INSTALL/usr/config/netctl/states
+  mkdir -p $INSTALL/usr/config/netctl/interfaces
+
+  cp -PR $PKG_DIR/config/interfaces/any-wired $INSTALL/usr/config/netctl/interfaces
+  cp -PR $PKG_DIR/config/wired $INSTALL/usr/config/netctl/
+  cp -PR $PKG_DIR/config/states/netctl.state $INSTALL/usr/config/netctl/states
+
   ln -sf /storage/.config/netctl $INSTALL/etc
 
   ln -sf /run/network/hosts $INSTALL/etc/hosts

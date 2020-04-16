@@ -55,3 +55,8 @@ make_target() {
     KERNEL_INCLUDE="$SYSROOT_PREFIX/usr/include" \
     all
 }
+
+post_makeinstall_target() {
+  mkdir -p $INSTALL/usr
+    mv $INSTALL/sbin $INSTALL/usr/sbin
+}

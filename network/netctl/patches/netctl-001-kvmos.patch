@@ -1,0 +1,49 @@
+diff -Nur a/Makefile b/Makefile
+--- a/Makefile	2020-04-15 14:37:41.320001961 +0200
++++ b/Makefile	2020-04-15 14:39:53.940002097 +0200
+@@ -11,8 +11,6 @@
+ .PHONY: install tarball pkgbuild upload clean
+ 
+ install:
+-	# Documentation
+-	$(MAKE) -C docs install
+ 	# Configuration files
+ 	install -d $(DESTDIR)/etc/netctl/{examples,hooks,interfaces}
+ 	install -m644 docs/examples/* $(DESTDIR)/etc/netctl/examples/
+diff -Nur a/services/netctl-ifplugd@.service b/services/netctl-ifplugd@.service
+--- a/services/netctl-ifplugd@.service	2020-04-15 14:37:41.330001961 +0200
++++ b/services/netctl-ifplugd@.service	2020-04-15 14:42:18.630002245 +0200
+@@ -7,7 +7,7 @@
+ 
+ [Service]
+ NotifyAccess=all
+-ExecStart=/usr/bin/ifplugd -i %I -r /etc/ifplugd/netctl.action -bfIns
++ExecStart=/usr/bin/ifplugd -i %I -r /etc/ifplugd/netctl.action
+ 
+ [Install]
+ WantedBy=sys-subsystem-net-devices-%i.device
+diff -Nur a/services/netctl.service b/services/netctl.service
+--- a/services/netctl.service	2020-04-15 14:37:41.330001961 +0200
++++ b/services/netctl.service	2020-04-15 14:42:58.870002286 +0200
+@@ -6,6 +6,9 @@
+ [Service]
+ Type=oneshot
+ RemainAfterExit=yes
++ExecStartPre=-/bin/sh -c "mkdir -p /run/network"
++ExecStartPre=-/bin/sh -c "cat /storage/.cache/hostname > /proc/sys/kernel/hostname"
++ExecStartPre=-/bin/sh -c "cat /storage/.config/hosts.conf > /run/network/hosts"
+ ExecStart=-/usr/bin/netctl restore
+ ExecStop=/usr/bin/netctl store
+ 
+diff -Nur a/src/lib/dhcp/dhcpcd b/src/lib/dhcp/dhcpcd
+--- a/src/lib/dhcp/dhcpcd	2020-04-15 14:37:41.330001961 +0200
++++ b/src/lib/dhcp/dhcpcd	2020-04-15 14:41:25.790002191 +0200
+@@ -12,7 +12,7 @@
+         return 1
+     fi
+     # If using own dns, tell dhcpcd to NOT replace resolv.conf
+-    [[ $DNS ]] && options+=" -C resolv.conf"
++    [[ $DNS ]] && options+=" -C $STATE_DIR/resolv.conf"
+     if ! do_debug do_readable dhcpcd "-$1" -q -t "${TimeoutDHCP:-30}" $options "$Interface"; then
+         report_error "DHCP IPv$1 lease attempt failed on interface '$Interface'"
+         return 1

@@ -1,0 +1,4 @@
+Description='Default wired ethernet connection'
+Interface=any-wired
+Connection=ethernet
+IP=dhcp
