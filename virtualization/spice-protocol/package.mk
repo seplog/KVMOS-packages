@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="spice-protocol"
-PKG_VERSION="0.12.12"
+PKG_VERSION="0.14.1"
 PKG_REV="1"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPL"

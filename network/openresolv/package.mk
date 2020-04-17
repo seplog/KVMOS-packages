@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="openresolv"
-PKG_VERSION="3.8.1"
+PKG_VERSION="3.9.2"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="BSD-2"

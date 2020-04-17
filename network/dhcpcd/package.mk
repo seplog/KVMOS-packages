@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="dhcpcd"
-PKG_VERSION="6.10.3"
+PKG_VERSION="9.0.1"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="BSD-2"

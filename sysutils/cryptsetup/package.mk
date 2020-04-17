@@ -17,13 +17,13 @@
 ################################################################################
 
 PKG_NAME="cryptsetup"
-PKG_VERSION="1.7.3"
+PKG_VERSION="2.3.1"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL-2+"
 PKG_SITE="https://gitlab.com/cryptsetup/cryptsetup/blob/master/README.md"
-PKG_URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v1.7/$PKG_NAME-$PKG_VERSION.tar.gz"
-PKG_DEPENDS_TARGET="toolchain util-linux popt libgpg-error"
+PKG_URL="https://www.kernel.org/pub/linux/utils/cryptsetup/v2.3/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_DEPENDS_TARGET="toolchain json-c util-linux popt libgpg-error"
 PKG_PRIORITY="optional"
 PKG_SECTION="sysutils"
 PKG_SHORTDESC="Tool to setup encrypted devices with dm-crypt"

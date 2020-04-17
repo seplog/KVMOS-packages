@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="iproute2"
-PKG_VERSION="4.6.0"
+PKG_VERSION="5.6.0"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL-2"

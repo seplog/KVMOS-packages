@@ -17,12 +17,12 @@
 ################################################################################
 
 PKG_NAME="dnsmasq"
-PKG_VERSION="2.75"
+PKG_VERSION="2.81"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL-2"
 PKG_SITE="http://www.thekelleys.org.uk/dnsmasq/doc.html"
-PKG_URL="http://www.thekelleys.org.uk/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_URL="http://www.thekelleys.org.uk/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tar.xz"
 PKG_DEPENDS_TARGET="toolchain dbus"
 PKG_PRIORITY="optional"
 PKG_SECTION="network"

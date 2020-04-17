@@ -16,18 +16,20 @@
 #  along with KVMOS.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="usbredir"
-PKG_VERSION="0.8.0"
+PKG_NAME="pyparsing"
+PKG_VERSION="2.4.7"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="LGPL-2.1"
-PKG_SITE="http://spice-space.org/page/UsbRedir"
-PKG_URL="https://spice-space.org/download/$PKG_NAME/$PKG_NAME-$PKG_VERSION.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain libusb"
-PKG_PRIORITY="optional"
-PKG_SECTION="sysutils"
-PKG_SHORTDESC="A simple TCP daemon and set of libraries for the usbredir protocol (redirecting USB traffic)"
-PKG_LONGDESC="A simple TCP daemon and set of libraries for the usbredir protocol (redirecting USB traffic)"
-PKG_IS_ADDON="no"
+PKG_LICENSE="MIT"
+PKG_SITE="https://pypi.org/project/pyparsing/"
+PKG_URL="https://files.pythonhosted.org/packages/c1/47/dfc9c342c9842bbe0036c7f763d2d6686bcf5eb1808ba3e170afdb282210/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_DEPENDS_TARGET="toolchain Python3:host setuptools:host"
+PKG_DEPENDS_HOST="Python3:host setuptools:host"
+PKG_SECTION="python/devel"
+PKG_SHORTDESC="Easy-to-use Python module for text parsing"
+PKG_LONGDESC="Easy-to-use Python module for text parsing"
+PKG_TOOLCHAIN="manual"
 
-PKG_AUTORECONF="no"
+makeinstall_host() {
+  exec_thread_safe python3 setup.py install --prefix=$TOOLCHAIN
+}
