@@ -32,7 +32,7 @@ PKG_LONGDESC="openresolv: A framework for managing DNS information"
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--libexecdir=/lib/resolvconf"
+PKG_CONFIGURE_OPTS_TARGET="--libexecdir=/usr/lib/resolvconf"
 
 pre_configure_target() {
   cd $PKG_BUILD

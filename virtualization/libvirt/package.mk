@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="libvirt"
-PKG_VERSION="5.10.0"
+PKG_VERSION="6.2.0"
 PKG_REV="1"
 PKG_ARCH="x86_64"
 PKG_LICENSE="LGPL-2.1"
@@ -156,21 +156,20 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_path_ADDR2LINE=/usr/bin/addr2line \
 
 post_makeinstall_target() {
   mkdir -p $INSTALL/usr/config/
-
-  cp $INSTALL/etc/libvirt $INSTALL/usr/config/ -Rf
-  rm -Rf $INSTALL/etc/libvirt
-  ln -sf /storage/.config/libvirt $INSTALL/etc/
+    cp $INSTALL/etc/libvirt $INSTALL/usr/config/ -Rf
+    rm -Rf $INSTALL/etc/libvirt
+    ln -sf /storage/.config/libvirt $INSTALL/etc/
 
   cp $INSTALL/etc/sysconfig $INSTALL/usr/config/ -Rf
-  rm -Rf $INSTALL/etc/sysconfig
-  ln -sf /storage/.config/sysconfig $INSTALL/etc/
+    rm -Rf $INSTALL/etc/sysconfig
+    ln -sf /storage/.config/sysconfig $INSTALL/etc/
 
   # Copy dmidecode... It is only a plugin
   mkdir -p $INSTALL/usr/sbin
-  cp -P $(get_build_dir dmidecode)/biosdecode $INSTALL/usr/sbin/
-  cp -P $(get_build_dir dmidecode)/dmidecode $INSTALL/usr/sbin/
-  cp -P $(get_build_dir dmidecode)/ownership $INSTALL/usr/sbin/
-  cp -P $(get_build_dir dmidecode)/vpddecode $INSTALL/usr/sbin/
+    cp -P $(get_build_dir dmidecode)/biosdecode $INSTALL/usr/sbin/
+    cp -P $(get_build_dir dmidecode)/dmidecode $INSTALL/usr/sbin/
+    cp -P $(get_build_dir dmidecode)/ownership $INSTALL/usr/sbin/
+    cp -P $(get_build_dir dmidecode)/vpddecode $INSTALL/usr/sbin/
 }
 
 post_install() {

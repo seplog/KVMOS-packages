@@ -32,7 +32,7 @@ PKG_LONGDESC="dhcpcd: A fully featured, yet light weight RFC2131 compliant DHCP 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--libexecdir=/lib/dhcpcd \
+PKG_CONFIGURE_OPTS_TARGET="--libexecdir=/usr/lib/dhcpcd \
                            --dbdir=/var/lib/dhcpcd \
                            --without-dev \
                            --without-udev"
