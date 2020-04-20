@@ -1,0 +1,23 @@
+######################################
+#                                    #
+# Copy this file to /storage/.mailrc #
+# and configure your smtp connection #
+#                                    #
+######################################
+
+#set v15-compat
+
+# It can be as easy as
+# (Remember USER and PASS must be URL percent encoded)
+#set mta=smtp://USER:PASS@HOST \
+#    smtp-use-starttls
+
+# It may be necessary to set hostname and/or smtp-hostname
+# if the "SERVER" of smtp and "domain" of from don't match.
+# Reading the "ON URL SYNTAX.." and smtp manual entries may be worthwhile
+#set mta=(smtp[s]/submission)://[USER[:PASS]@]SERVER[:PORT] \
+#    smtp-auth=login[/plain]... \
+#    smtp-use-starttls
+
+# For URLencode use this:
+# echo -n "[Encode String]" | curl -Gso /dev/null -w %{url_effective} --data-urlencode @- "" | cut -c 3-

@@ -33,4 +33,4 @@ PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 # Additional packages we need
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET smartmontools cryptsetup cciss_vol_status"
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET smartmontools cryptsetup cciss_vol_status s-nail"

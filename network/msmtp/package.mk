@@ -16,46 +16,33 @@
 #  along with KVMOS.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="mailx"
-PKG_VERSION="8.1.2-0.20050715"
+PKG_NAME="msmtp"
+PKG_VERSION="1.8.8"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="BSD"
-PKG_SITE="http://www.debian.org/"
-# http://distfiles.gentoo.org/distfiles/mailx_8.1.2-0.20050715cvs.orig.tar.gz
-PKG_URL="http://distfiles.gentoo.org/distfiles/${PKG_NAME}_${PKG_VERSION}cvs.orig.tar.gz"
-PKG_DEPENDS_TARGET="toolchain liblockfile ssmtp"
+PKG_LICENSE="GPL-3"
+PKG_SITE="https://marlam.de/msmtp/"
+PKG_URL="https://marlam.de/msmtp/releases/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_DEPENDS_TARGET="toolchain gnutls"
 PKG_PRIORITY="optional"
 PKG_SECTION="network"
-PKG_SHORTDESC="The /bin/mail program, which is used to send mail via shell scripts"
-PKG_LONGDESC="The /bin/mail program, which is used to send mail via shell scripts"
+PKG_SHORTDESC="An SMTP client and SMTP plugin for mail user agents such as Mutt"
+PKG_LONGDESC="An SMTP client and SMTP plugin for mail user agents such as Mutt"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_MAKE_OPTS_TARGET="DESTDIR=$INSTALL"
-
-configure_target() {
-  : # nop()
-}
-
-makeinstall_target() {
-  mkdir -p $INSTALL/{usr/bin,bin,etc}
-  install -p -c -m 755 mail $INSTALL/usr/bin/
-  (
-    cd misc
-    install -p -c -m 644 mail.rc $INSTALL/etc/
-  )
-  (
-    cd $INSTALL/usr/bin
-    ln -sf mail Mail
-    ln -sf mail mailx
-  )
-}
+PKG_CONFIGURE_OPTS_TARGET="--with-tls=gnutls \
+                           --without-libgsasl \
+                           --without-libidn \
+                           --without-libsecret \
+                           --without-msmtpd \
+                           --sysconfdir=/etc/msmtp"
 
 post_makeinstall_target() {
-  mkdir -p $INSTALL/usr/config
-  cp $INSTALL/etc/mail.rc $INSTALL/usr/config/
-  rm -Rf $INSTALL/etc/mail.rc
-  ln -sf /storage/.config/mail.rc $INSTALL/etc/
+  mkdir -p $INSTALL/etc/
+    cp $PKG_DIR/config/mail.rc $INSTALL/etc/
+
+  mkdir -p $INSTALL/usr/share/config/msmtp
+    ln -sf /storage/.config/msmtprc $INSTALL/etc/
 }
