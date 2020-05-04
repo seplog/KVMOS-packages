@@ -1,0 +1,10 @@
+[Unit]
+Description=Setup loopback (/dev/%i) devices
+DefaultDependencies=no
+
+[Service]
+ExecStart=/sbin/losetup /dev/%i $IMG
+ExecStop=/sbin/losetup -d /dev/%i
+
+RemainAfterExit=yes
+Type=oneshot

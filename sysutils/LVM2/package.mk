@@ -19,12 +19,12 @@
 ################################################################################
 
 PKG_NAME="LVM2"
-PKG_VERSION="2.02.185"
+PKG_VERSION="2.02.187"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE=""
-PKG_SITE="http://sources.redhat.com/lvm2/"
-PKG_URL="ftp://sources.redhat.com/pub/lvm2/${PKG_NAME}.${PKG_VERSION}.tgz"
+PKG_SITE="https://sourceware.org/lvm2/"
+PKG_URL="ftp://sourceware.org/pub/lvm2/${PKG_NAME}.${PKG_VERSION}.tgz"
 PKG_SOURCE_DIR="${PKG_NAME}.${PKG_VERSION}"
 PKG_DEPENDS_TARGET="toolchain libaio"
 PKG_PRIORITY="optional"
@@ -40,11 +40,9 @@ PKG_MAINTAINER="vpeter4 (peter.vicman@gmail.com)"
 PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
             ac_cv_func_realloc_0_nonnull=yes \
             --includedir=$SYSROOT_PREFIX/usr/include \
-            --disable-lvm1_fallback \
             --disable-static_link \
             --disable-readline \
             --enable-realtime \
-            --enable-debug \
             --disable-profiling \
             --disable-compat \
             --enable-o_direct \
@@ -52,13 +50,21 @@ PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
             --enable-cmdlib \
             --enable-pkgconfig \
             --enable-fsadm \
-            --disable-dmeventd \
             --disable-selinux \
             --disable-nls \
             --enable-dmeventd \
+            --enable-dmfilemapd \
             --enable-lvmetad \
             --enable-lvmpolld \
-            --enable-devicemapper"
+            --enable-devicemapper \
+            --enable-fsadm \
+            --enable-udev_rules \
+            --enable-udev_sync \
+            --with-udevdir=/usr/lib/udev/rules.d \
+            --disable-lvmlockd-sanlock \
+            --enable-udev-systemd-background-jobs \
+            --enable-notify-dbus \
+            --with-systemdsystemunitdir=/usr/lib/systemd/system"
 
 makeinstall_target() {
   # manual install several targets
@@ -70,9 +76,9 @@ makeinstall_target() {
 
 post_makeinstall_target() {
   mkdir -p $INSTALL/usr/config/
-  cp $INSTALL/etc/lvm $INSTALL/usr/config -Rf
-  rm -Rf $INSTALL/etc/lvm
-  cp -f $PKG_DIR/config/lvm.conf $INSTALL/usr/config/lvm/
+    cp $INSTALL/etc/lvm $INSTALL/usr/config -Rf
+    rm -Rf $INSTALL/etc/lvm
+    cp -f $PKG_DIR/config/lvm.conf $INSTALL/usr/config/lvm/
 
   mkdir -p $SYSROOT_PREFIX/usr/lib/pkgconfig
     cp $INSTALL/usr/lib/pkgconfig/* $SYSROOT_PREFIX/usr/lib/pkgconfig
@@ -81,6 +87,9 @@ post_makeinstall_target() {
     cp -Rf $INSTALL/usr/lib/* $SYSROOT_PREFIX/usr/lib
 
   ln -sf /storage/.config/lvm $INSTALL/etc
+
+  mkdir -p $INSTALL/usr/lib/systemd/system/
+    cp -f $PKG_DIR/files/losetup\@.service $INSTALL/usr/lib/systemd/system/
 
   enable_service lvm2-monitor.service
 }

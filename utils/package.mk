@@ -34,3 +34,4 @@ PKG_AUTORECONF="no"
 
 # Additional packages we need
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET smartmontools cryptsetup cciss_vol_status s-nail lm_sensors watchdog edac-utils hp-health hponcfg"
+
