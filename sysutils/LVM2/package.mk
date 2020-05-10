@@ -1,95 +1,159 @@
-################################################################################
-#      This file is part of OpenELEC - http://www.openelec.tv
-#      Copyright (C) 2009-2013 Stephan Raue (stephan@openelec.tv)
-#
-#  This Program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2, or (at your option)
-#  any later version.
-#
-#  This Program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with OpenELEC.tv; see the file COPYING.  If not, write to
-#  the Free Software Foundation, 51 Franklin Street, Suite 500, Boston, MA 02110, USA.
-#  http://www.gnu.org/copyleft/gpl.html
-################################################################################
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
+# dont update, the old version is intentional
+# because of build problems or please fix the build problems
+#
 PKG_NAME="LVM2"
-PKG_VERSION="2.02.187"
-PKG_REV="1"
+PKG_VERSION="2.02.186"
+PKG_SHA256="d8421eee702982dc0d8b0c9e40cc1443ee487eff1460a00244a9f4bf439a27be"
 PKG_ARCH="any"
-PKG_LICENSE=""
-PKG_SITE="https://sourceware.org/lvm2/"
-PKG_URL="ftp://sourceware.org/pub/lvm2/${PKG_NAME}.${PKG_VERSION}.tgz"
-PKG_SOURCE_DIR="${PKG_NAME}.${PKG_VERSION}"
-PKG_DEPENDS_TARGET="toolchain libaio"
-PKG_PRIORITY="optional"
-PKG_SECTION="system"
-PKG_SHORTDESC="lvm2: Logical Volume Management (Version 2)"
-PKG_LONGDESC="LVM includes all of the support for handling read/write operations on physical volumes (hard disks, RAID-Systems, magneto optical, etc., multiple devices (MD), see mdadd(8) or even loop devices, see losetup(8)), creating volume groups (kind of virtual disks) from one or more physical volumes and creating one or more logical volumes (kind of logical partitions) in volume groups. This 2nd version is based on device-mapper available in linux-2.6."
+PKG_LICENSE="GPLv2 LGPL2.1"
+PKG_SITE="https://sourceware.org/lvm2"
+PKG_URL="http://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.$PKG_VERSION.tgz"
+PKG_SOURCE_DIR="LVM2.$PKG_VERSION"
+PKG_DEPENDS_TARGET="toolchain systemd readline util-linux libaio"
+PKG_DEPENDS_INIT="toolchain libaio util-linux:init"
+PKG_DEPENDS_BOOTSTRAP="toolchain libaio util-linux"
+PKG_SECTION="sysutils"
+PKG_SHORTDESC="Logical Volume Manager 2 utilities"
 
 PKG_IS_ADDON="no"
-PKG_AUTORECONF="yes"
+PKG_AUTORECONF="no"
 
-PKG_MAINTAINER="vpeter4 (peter.vicman@gmail.com)"
+LVM2_CONFIG_DEFAULT="ac_cv_func_malloc_0_nonnull=yes \
+                     ac_cv_func_realloc_0_nonnull=yes \
+                     --disable-use-lvmlockd \
+                     --disable-selinux \
+                     --disable-dbus-service \
+                     --with-cache=none \
+                     --with-thin=none \
+                     --with-clvmd=none \
+                     --with-cluster=none"
 
-PKG_CONFIGURE_OPTS_TARGET="ac_cv_func_malloc_0_nonnull=yes \
-            ac_cv_func_realloc_0_nonnull=yes \
-            --includedir=$SYSROOT_PREFIX/usr/include \
-            --disable-static_link \
-            --disable-readline \
-            --enable-realtime \
-            --disable-profiling \
-            --disable-compat \
-            --enable-o_direct \
-            --enable-applib \
-            --enable-cmdlib \
-            --enable-pkgconfig \
-            --enable-fsadm \
-            --disable-selinux \
-            --disable-nls \
-            --enable-dmeventd \
-            --enable-dmfilemapd \
-            --enable-lvmetad \
-            --enable-lvmpolld \
-            --enable-devicemapper \
-            --enable-fsadm \
-            --enable-udev_rules \
-            --enable-udev_sync \
-            --with-udevdir=/usr/lib/udev/rules.d \
-            --disable-lvmlockd-sanlock \
-            --enable-udev-systemd-background-jobs \
-            --enable-notify-dbus \
-            --with-systemdsystemunitdir=/usr/lib/systemd/system"
+PKG_CONFIGURE_OPTS_TARGET="$LVM2_CONFIG_DEFAULT \
+                           --enable-pkgconfig \
+                           --disable-applib \
+                           --enable-cmdlib \
+                           --enable-udev_sync \
+                           --enable-udev_rules \
+                           --enable-udev-rule-exec-detection \
+                           --enable-lvmetad \
+                           --enable-lvmpolld \
+                           --enable-dmeventd \
+                           --enable-dmfilemapd \
+                           --enable-blkdeactivate \
+                           --enable-write_install \
+                           --with-default-system-dir=/storage/.config/lvm \
+                           --with-confdir=/storage/.config \
+                           --sysconfdir=/storage/.config \
+                           --with-udevdir=/usr/lib/udev/rules.d \
+                           --with-systemdsystemunitdir=/usr/lib/systemd/system \
+                           --with-tmpfilesdir=/usr/lib/tmpfiles.d"
 
-makeinstall_target() {
-  # manual install several targets
-  INSTALL_TARGETS="install install_tmpfiles_configuration install_systemd_units install_systemd_generators install_device-mapper"
-  for inst in ${INSTALL_TARGETS}; do
-    make DESTDIR="$INSTALL" pkgconfigdir=$INSTALL/usr/lib/pkgconfig ${inst}
-  done
-}
+PKG_CONFIGURE_OPTS_INIT="$LVM2_CONFIG_DEFAULT \
+                         --with-optimisation=-Os \
+                         --disable-readline \
+                         --disable-applib \
+                         --disable-cmdlib \
+                         --disable-blkid_wiping \
+                         --disable-use-lvmetad \
+                         --with-mirrors=none \
+                         --disable-use-lvmpolld \
+                         --disable-dmeventd \
+                         --disable-dmfilemapd \
+                         --disable-blkdeactivate \
+                         --disable-udev_sync \
+                         --disable-udev_rules \
+                         --disable-pkgconfig \
+                         --disable-fsadm \
+                         --disable-nls"
 
+PKG_CONFIGURE_OPTS_INIT="$LVM2_CONFIG_INIT"
+
+# attempts to build lvm2:init static
+#                         CFLAGS=-I$SYSROOT_PREFIX/usr/include \
+#                         CPPFLAGS=-I$SYSROOT_PREFIX/usr/include \
+#                         LDFLAGS=-L$SYSROOT_PREFIX/usr/lib \
+#                         --enable-static_link \
+#                         PKG_CONFIG_PATH=$SYSROOT_PREFIX/usr/lib/pkgconfig \
+#                         BLKID_LIBS=-L$SYSROOT_PREFIX/usr/lib \
 post_makeinstall_target() {
-  mkdir -p $INSTALL/usr/config/
-    cp $INSTALL/etc/lvm $INSTALL/usr/config -Rf
-    rm -Rf $INSTALL/etc/lvm
-    cp -f $PKG_DIR/config/lvm.conf $INSTALL/usr/config/lvm/
+  # more install targets
+  make install_system_dirs DESTDIR=$INSTALL
+  # make install_initscripts DESTDIR=$INSTALL
+  make install_systemd_units DESTDIR=$INSTALL
+  make install_systemd_generators DESTDIR=$INSTALL
+  make install_tmpfiles_configuration DESTDIR=$INSTALL
 
-  mkdir -p $SYSROOT_PREFIX/usr/lib/pkgconfig
-    cp $INSTALL/usr/lib/pkgconfig/* $SYSROOT_PREFIX/usr/lib/pkgconfig
+  # detele cache dir
+  rm -rf $INSTALL/storage/.config/lvm/cache
 
-  mkdir -p $SYSROOT_PREFIX/usr/lib
-    cp -Rf $INSTALL/usr/lib/* $SYSROOT_PREFIX/usr/lib
+  # moving config to the right place
+  mkdir -p $INSTALL/usr/config
+  mv $INSTALL/storage/.config/lvm $INSTALL/usr/config
+  rmdir $INSTALL/storage/.config $INSTALL/storage
 
-  ln -sf /storage/.config/lvm $INSTALL/etc
+  # fix config
+  sed -i -e 's|cache_dir = "/etc/lvm/cache"|cache_dir = "/run/lvm"|g' $INSTALL/usr/config/lvm/lvm.conf
+  sed -i -e 's|cache_dir = "/storage/.config/lvm/cache"|cache_dir = "/run/lvm"|g' $INSTALL/usr/config/lvm/lvm.conf
+  pushd $INSTALL/usr/config/lvm
+  for i in `ls -1 lvm*.conf profile/*.profile`; do
+    sed -i -e 's|\([" ]\)/etc/lvm\([/ ]\)|\1/storage/.config/lvm\2|g' $i
+  done
+  popd
 
-  mkdir -p $INSTALL/usr/lib/systemd/system/
+  # symlink for config
+  mkdir -p $INSTALL/etc
+  ln -s /storage/.config/lvm $INSTALL/etc/lvm
+
+  # fix rebuild problem
+  chmod u+w $INSTALL/usr/lib/libdevmapper.so*
+
+  sed -i 's/use_lvmetad = 0/use_lvmetad = 1/g' $INSTALL/usr/config/lvm/lvm.conf
+
+  mkdir -p $INSTALL/usr/lib/systemd/system
     cp -f $PKG_DIR/files/losetup\@.service $INSTALL/usr/lib/systemd/system/
 
   enable_service lvm2-monitor.service
+}
+
+# this is for full lvm2 initramfs support
+post_makeinstall_init() {
+  # reduce needed binaries
+  rm -f $INSTALL/usr/sbin/lvmdump $INSTALL/usr/sbin/lvmconf
+  find $INSTALL/usr/sbin -type l | xargs rm
+
+  # reduce config to the minimum
+  rm -rf  $INSTALL/etc/lvm/lvmlocal.conf  $INSTALL/etc/lvm/profile
+
+  # fix rebuild problem
+  chmod u+w $INSTALL/usr/lib/libdevmapper.so*
+}
+
+# very ugly workaround for a bug in lvm2 make install
+# that only works if lvm2 is not installed
+pre_makeinstall_bootstrap() {
+  if [ ! -d /etc/lvm ] ; then
+    sudo mkdir /etc/lvm
+    sudo chown `whoami`. /etc/lvm
+    touch /etc/lvm/.workaround
+  fi
+}
+
+post_makeinstall_bootstrap() {
+  # reduce needed binaries
+  rm -f $TOOLCHAIN/sbin/lvmdump $TOOLCHAIN/sbin/lvmconf
+  ls -la $TOOLCHAIN/sbin/* | egrep ' lvm$| dmsetup$' | awk '{ print $(NF-2) }' | xargs rm
+
+  # reduce config to the minimum
+  rm -rf  $TOOLCHAIN/etc/lvm/lvmlocal.conf  $TOOLCHAIN/etc/lvm/profile
+
+  # fix rebuild problem
+  chmod u+w $TOOLCHAIN/lib/libdevmapper.so*
+
+  # remove ugly workaround
+  if [ -f /etc/lvm/.workaround ] ; then
+    sudo rm -rf /etc/lvm/ || :
+  fi
 }
